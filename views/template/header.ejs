@@ -15,18 +15,18 @@
             <% if(!isLogged) { %>
             <ul class="navbar-nav text-end">
                 <li class="nav-item">
-                    <a class="btn-atlantis btn-nav nav-link btn btn-block" href="/login">Se connecter</a>
+                    <a class="btn-tplm btn-nav nav-link btn btn-block" href="/login">Se connecter</a>
                 </li>
             </ul>
             <% } else{ %>
             <ul class="navbar-nav">
                 <li class="nav-item me-2 my-auto">
-                    <p class="btn-team mb-0 nav-link">Bonjour <%-username%> </p>
+                    <p class="btn-username mb-0 nav-link">Bonjour <%-username%> </p>
                 </li>
 
                 <li class="nav-item ms-2 my-auto">
                     <div>
-                        <a id="disconnectButton" type="button" href="/logout" class="btn-atlantis nav-link btn  btn-block">Se déconnecter</a>
+                        <a id="disconnectButton" type="button" href="/logout" class="btn-tplm nav-link btn  btn-block">Se déconnecter</a>
                     </div>
                 </li>
             </ul>

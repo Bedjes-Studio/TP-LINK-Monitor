@@ -1,4 +1,6 @@
-/* Fonts */
+/*
+ * FONTS
+ */
 
 @font-face {
     font-family: "Montserrat";
@@ -10,23 +12,36 @@
     src: url("font/Roboto_Mono/RobotoMono-Regular.ttf");
 }
 
-/* Global */
+/*
+ * GLOBAL
+ */
 
 :root {
     --main_font: "Montserrat";
     --secondary_font: "RobotoMono";
-    --body-background-color: #432e2e;
+
+    --teal: #4acbd6;
+    --yellow: #f5bf43;
+    --navy-blue: #250d71;
+    --maroon: #c11466;
+    --dark-green: #005564;
+    --cyan-blue: #00b7de;
+    --dark-gray: #36444b;
+    --light-gray: #a7a0ac;
 }
 
 body {
-    background-color: var(--body-background-color);
+    background-color: var(--light-gray);
     font-family: var(--main_font);
+    padding: 10px;
 }
 
 footer {
-    background-color: #251111;
+    background-color:var(--dark-green);
+    color: var(--light-gray);
     margin-top: 20px;
     padding: 10px;
+    border-radius: 20px;
 }
 
 /* Section template */
@@ -52,17 +67,17 @@ footer {
 /* Nav header */
 
 #main-navbar {
-    background-color: #4e8672;
+    background-color: var(--teal);
     border-radius: 20px;
 }
 
-.btn-team {
-    background-color: #71d7b4;
+.btn-username {
+    background-color: var(--yellow);
     border-radius: 0.25rem;
 }
 
-.btn-atlantis {
-    background-color: #71d7b4;
+.btn-tplm {
+    background-color: var(--yellow);
 }
 
 .btn-nav {
@@ -103,7 +118,6 @@ footer {
 .btn-overlay {
     background-color: #71d7b4;
 }
-
 
 /* Challenge page */
 
