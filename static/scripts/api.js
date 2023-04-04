@@ -1,5 +1,4 @@
-
-const apiCall = (endPoint, method, body) => {
+const apiCall = (endPoint, method, body = {}) => {
     return new Promise(function (resolve, reject) {
         fetch(endPoint, {
             method: method,
