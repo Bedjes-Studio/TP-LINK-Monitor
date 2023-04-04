@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("../config");
 
+const { errorHandler } = require("./utils");
 const User = require("../models/user");
 
 // TODO : Hide this request later
@@ -22,12 +23,12 @@ exports.signup = (req, res, next) => {
                     });
                 })
                 .catch((error) => {
-                    res.status(400).json({
-                        error: error,
-                    });
+                    errorHandler(error, res);
                 });
         })
-        .catch((error) => res.status(500).json({ error: "internal server error" }));
+        .catch((error) => {
+            errorHandler(error, res);
+        });
 };
 
 exports.login = (req, res, next) => {
@@ -54,8 +55,7 @@ exports.login = (req, res, next) => {
                     });
             })
             .catch((error) => {
-                console.log(error);
-                res.status(500).json({ error });
+                errorHandler(error, res);
             });
     } else {
         res.status(401).json({ error: "Merci de remplir tous les champs" });
