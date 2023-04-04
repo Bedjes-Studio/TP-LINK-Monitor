@@ -1,7 +1,7 @@
 {
-    "name": "cs-games-2023-sec-1",
+    "name": "tp-link-monitor",
     "version": "1.0.0",
-    "description": "Challenge 1 of CS Games 2023",
+    "description": "TP-LINK-Monitor",
     "main": "server.js",
     "scripts": {
         "nodemon-dev": "set NODE_ENV=dev && nodemon server.js",
@@ -10,26 +10,22 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Bedjes-Studio/CS_Games"
+        "url": "git+https://github.com/Bedjes-Studio/TP-LINK-Monitor"
     },
     "author": "Bedjes Studio",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Bedjes-Studio/CS_Games/issues"
+        "url": "https://github.com/Bedjes-Studio/TP-LINK-Monitor/issues"
     },
-    "homepage": "https://github.com/Bedjes-Studio/CS_Games#readme",
+    "homepage": "https://github.com/Bedjes-Studio/TP-LINK-Monitor#readme",
     "dependencies": {
         "bcrypt": "^5.1.0",
-        "checksum": "^1.0.0",
         "cookie-parser": "^1.4.6",
         "dotenv": "^16.0.3",
         "ejs": "^3.1.8",
         "express": "^4.18.2",
         "jsonwebtoken": "^9.0.0",
-        "mail": "^0.2.3",
         "mongoose": "^7.0.1",
-        "multer": "^1.4.5-lts.1",
-        "mysql": "^2.18.1",
         "nodemailer": "^6.9.1",
         "nodemon": "^2.0.20"
     }
