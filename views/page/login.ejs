@@ -2,87 +2,88 @@
 <html lang="en">
 
 <head>
-	<%- include('../template/head'); %>
+    <%- include('../template/head'); %>
 </head>
 
 <body class="container">
 
-	<header>
-		<%- include('../template/header'); %>
-	</header>
+    <header>
+        <%- include('../template/header'); %>
+    </header>
 
-	<main>
+    <main>
 
-		<div class="section">
+        <div class="section">
             <h1 class="section-title">Connexion</h1>
             <div class="section-content">
                 <form>
-					<div class="form-outline mb-4">
-						<input id="usernameInput" type="text" class="form-control" />
-						<label class="form-label" for="usernameInput">Nom d'utilisateur</label>
-					</div>
-		
-					<div class="form-outline mb-4">
-						<input id="passwordInput" type="password" class="form-control" />
-						<label class="form-label" for="passwordInput">Mot de passe</label>
-					</div>
-		
-					<button id="sumitButton" type="button" class="btn-atlantis btn btn-block mb-4">Se connecter</button>
-		
-					<p id="errorMessages">
-					</p>
-				</form>
+                    <div class="form-outline mb-4">
+                        <input id="usernameInput" type="text" class="form-control" />
+                        <label class="form-label" for="usernameInput">Nom d'utilisateur</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input id="passwordInput" type="password" class="form-control" />
+                        <label class="form-label" for="passwordInput">Mot de passe</label>
+                    </div>
+
+                    <button id="sumitButton" type="button" class="btn-tplm btn btn-block mb-4">Se connecter</button>
+
+                    <p id="errorMessages">
+                    </p>
+                </form>
             </div>
         </div>
 
-		
-	</main>
 
-	<footer>
-		<script>
-			const form = {
-				email: $("#usernameInput"),
-				password: $("#passwordInput"),
-				submit: $("#sumitButton"),
-				messages: $("#errorMessages"),
-			};
+    </main>
 
-			let button = form.submit.click(() => {
-				const login = "/api/user/login";
+    <footer>
+        <script>
+            const form = {
+                email: $("#usernameInput"),
+                password: $("#passwordInput"),
+                submit: $("#sumitButton"),
+                messages: $("#errorMessages"),
+            };
 
-				fetch(login, {
-					method: "POST",
-					headers: {
-						Accept: "application/json, text/plain, */*",
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						username: form.email.val(),
-						password: form.password.val(),
-					}),
-				})
-					.then((response) => {
+            let button = form.submit.click(() => {
+                const login = "/api/user/login";
 
-						response.json().then(data => ({ status: response.status, body: data }))
-							.then(res => {
-								if (res.status == 401) {
-									// form.messages.text("login noooo");
-									form.messages.text(res.body.message);
-								}
-								if (res.status == 200) {
-									// redirect to main page
-									window.location.replace("/");
-								}
-							});
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			});
-		</script>
+                fetch(login, {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json, text/plain, */*",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            username: form.email.val(),
+                            password: form.password.val(),
+                        }),
+                    })
+                    .then((response) => {
 
-		<%- include('../template/footer'); %>
-	</footer>
+                        response.json().then(data => ({
+                                status: response.status,
+                                body: data
+                            }))
+                            .then(res => {
+                                if (res.status == 401) {
+                                    form.messages.text(res.body.error);
+                                }
+                                if (res.status == 200) {
+                                    window.location.replace("/");
+                                }
+                            });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            });
+        </script>
+
+        <%- include('../template/footer'); %>
+    </footer>
 
 </body>
 

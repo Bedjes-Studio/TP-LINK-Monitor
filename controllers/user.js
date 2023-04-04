@@ -58,6 +58,6 @@ exports.login = (req, res, next) => {
                 res.status(500).json({ error });
             });
     } else {
-        res.status(401).json({ message: "Please enter Username and Password!" });
+        res.status(401).json({ error: "Merci de remplir tous les champs" });
     }
 };

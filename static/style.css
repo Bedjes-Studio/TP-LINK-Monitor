@@ -28,10 +28,12 @@
     --cyan-blue: #00b7de;
     --dark-gray: #36444b;
     --light-gray: #a7a0ac;
+    --ultra-light-gray: #dfd8e5;
+
 }
 
 body {
-    background-color: var(--light-gray);
+    background-color: var(--ultra-light-gray);
     font-family: var(--main_font);
     padding: 10px;
 }
@@ -52,14 +54,15 @@ footer {
 }
 
 .section-title {
-    background-color: #4e8672;
+    background-color: var(--dark-green);
+    color: white;
     margin-bottom: 0;
     text-align: center;
     padding: 10px;
     border-radius: 20px 20px 0 0;
 }
 .section-content {
-    background-color: #3e6a5a;
+    background-color: var(--teal);
     padding: 10px;
     border-radius: 0 0 20px 20px;
 }
