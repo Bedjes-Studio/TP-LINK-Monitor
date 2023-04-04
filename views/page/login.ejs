@@ -3,6 +3,8 @@
 
 <head>
     <%- include('../template/head'); %>
+    <script src="/static/scripts/api.js"></script>
+    <script src="/static/scripts/login.js"></script>
 </head>
 
 <body class="container">
@@ -12,7 +14,6 @@
     </header>
 
     <main>
-
         <div class="section">
             <h1 class="section-title">Connexion</h1>
             <div class="section-content">
@@ -39,49 +40,6 @@
     </main>
 
     <footer>
-        <script>
-            const form = {
-                email: $("#usernameInput"),
-                password: $("#passwordInput"),
-                submit: $("#sumitButton"),
-                messages: $("#errorMessages"),
-            };
-
-            let button = form.submit.click(() => {
-                const login = "/api/user/login";
-
-                fetch(login, {
-                        method: "POST",
-                        headers: {
-                            Accept: "application/json, text/plain, */*",
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            username: form.email.val(),
-                            password: form.password.val(),
-                        }),
-                    })
-                    .then((response) => {
-
-                        response.json().then(data => ({
-                                status: response.status,
-                                body: data
-                            }))
-                            .then(res => {
-                                if (res.status == 401) {
-                                    form.messages.text(res.body.error);
-                                }
-                                if (res.status == 200) {
-                                    window.location.replace("/");
-                                }
-                            });
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            });
-        </script>
-
         <%- include('../template/footer'); %>
     </footer>
 
