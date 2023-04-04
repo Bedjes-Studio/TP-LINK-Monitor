@@ -1,0 +1,34 @@
+{
+    "name": "cs-games-2023-sec-1",
+    "version": "1.0.0",
+    "description": "Challenge 1 of CS Games 2023",
+    "main": "server.js",
+    "scripts": {
+        "nodemon-dev": "set NODE_ENV=dev && nodemon server.js",
+        "nodemon-prod": "set NODE_ENV=prod && nodemon server.js",
+        "filldb-dev": "set NODE_ENV=dev && node mongodb/filler.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Bedjes-Studio/CS_Games"
+    },
+    "author": "Bedjes Studio",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Bedjes-Studio/CS_Games/issues"
+    },
+    "homepage": "https://github.com/Bedjes-Studio/CS_Games#readme",
+    "dependencies": {
+        "bcrypt": "^5.1.0",
+        "checksum": "^1.0.0",
+        "cookie-parser": "^1.4.6",
+        "dotenv": "^16.0.3",
+        "ejs": "^3.1.8",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "mongoose": "^7.0.1",
+        "multer": "^1.4.5-lts.1",
+        "mysql": "^2.18.1",
+        "nodemon": "^2.0.20"
+    }
+}
