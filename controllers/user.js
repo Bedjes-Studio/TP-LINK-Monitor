@@ -49,10 +49,6 @@ exports.login = (req, res, next) => {
                         console.log;
                         res.status(200).json({ token: token });
                     })
-                    .catch((error) => {
-                        console.log(error);
-                        res.status(500).json({ error });
-                    });
             })
             .catch((error) => {
                 errorHandler(error, res);
