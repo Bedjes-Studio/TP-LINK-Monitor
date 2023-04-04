@@ -13,6 +13,10 @@ const dev = {
         port: parseInt(process.env.DEV_MONGODB_PORT) || 27017,
         name: process.env.DEV_MONGODB_NAME || "TP-LINK-Monitor",
     },
+    mail: {
+        user: process.env.DEV_MAIL_USER || "IoTUQAC@gmail.com",
+        password: process.env.DEV_MAIL_PASSWORD || "azerty",
+    },
 };
 
 const prod = {
