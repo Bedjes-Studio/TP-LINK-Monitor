@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const loginFilter = require("../middleware/loginFilter");
+const loggedFilter = require("../middleware/loggedFilter");
+const notLoggedFilter = require("../middleware/notLoggedFilter");
 
 const frontCtrl = require("../controllers/front");
 
-router.get("/login", (req, res, next) => {
+router.get("/login", notLoggedFilter, (req, res, next) => {
     res.render("page/login", {
         isLogged: req.auth.isLogged,
     });
@@ -16,14 +17,8 @@ router.get("/logout", (req, res, next) => {
     res.redirect("/login");
 });
 
-router.get("/monitor", loginFilter, frontCtrl.monitor);
+router.get("/monitor", loggedFilter, frontCtrl.monitor);
 
-router.use("*", (req, res, next) => {
-    if (req.auth.isLogged) {
-        res.redirect("/monitor");
-    } else {
-        res.redirect("/login");
-    }
-});
+router.use("*", loggedFilter, notLoggedFilter);
 
 module.exports = router;
