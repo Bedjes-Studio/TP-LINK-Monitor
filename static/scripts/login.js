@@ -29,10 +29,10 @@ const login = (username, password) => {
 
 const parseLoginResponse = (response) => {
     return new Promise(function (resolve, reject) {
-        if (response.status == 401) {
-            form.messages.text(response.body.error);
+        if (response.statusCode == 401) {
+            form.messages.text(response.error);
         }
-        if (response.status == 200) {
+        if (response.statusCode == 200) {
             window.location.replace("/");
         }
         resolve();
