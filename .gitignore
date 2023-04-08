@@ -2,4 +2,3 @@ node_modules/
 .env
 .vs
 *.csv
-chromedriver.exe
