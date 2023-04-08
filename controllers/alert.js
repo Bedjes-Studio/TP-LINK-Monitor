@@ -1,4 +1,5 @@
 const { errorHandler } = require("./utils");
+const { sendMailToAdmins } = require("./mail");
 const Alert = require("../models/alert");
 
 exports.create = (req, res, next) => {
@@ -36,6 +37,7 @@ exports.delete = (req, res, next) => {
 
 const createAlert = (type, description) => {
     return new Promise(function (resolve, reject) {
+        // sendMailToAdmins("[TP-LINK-Monitor] Nouvelle alerte - " + type, description);
         const alert = new Alert({
             type: type,
             description: description,

@@ -1,5 +1,8 @@
 const nodemailer = require("nodemailer");
-const config = require('./config');
+
+const { errorHandler } = require("./utils");
+const config = require("../config");
+const User = require("../models/user");
 
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -26,8 +29,17 @@ function sendMail(to, subject, text) {
     });
 }
 
-exports.sendMail = sendMail;
+function sendMailToAdmins(subject, text) {
+    User.find({})
+        .then((users) => {
+            users.foreach((user) => {
+                sendMail(users.email, subject, text);
+            });
+        })
+        .catch((error) => {
+            errorHandler(error, res);
+        });
+}
 
-// USAGE
-// const {sendMail} = require("../mail");
-// sendMail(to, subject, text)
+exports.sendMail = sendMail;
+exports.sendMailToAdmins = sendMailToAdmins;
