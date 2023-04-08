@@ -1,6 +1,9 @@
 require("dotenv").config();
 
-let env = process.env.NODE_ENV.trim();
+let env = "dev";
+if (process.env.NODE_ENV != undefined) {
+    env = process.env.NODE_ENV.trim();
+}
 
 const dev = {
     server: {
