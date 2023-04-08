@@ -47,3 +47,5 @@ const createAlert = (type, description) => {
         alert.save().then(resolve).catch(reject);
     });
 };
+
+exports.createAlert = createAlert;

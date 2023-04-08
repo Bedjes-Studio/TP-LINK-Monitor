@@ -1,9 +1,8 @@
-const { errorHandler } = require("./utils");
-const fs = require("fs");
-const { parse } = require("csv-parse");
+const { errorHandler, readCsvFromLine } = require("./utils");
+const { createAlert } = require("./alert");
 
 exports.read = (req, res, next) => {
-    readConsumptionData()
+    readCsvFromLine("./data/consumption.csv", 1)
         .then((data) => {
             res.status(200).json({ result: data });
         })
@@ -13,7 +12,7 @@ exports.read = (req, res, next) => {
 };
 
 exports.check = (req, res, next) => {
-    readConsumptionData()
+    readCsvFromLine("./data/consumption.csv", 1)
         .then((data) => {
             detectAttacksPattern(data);
             res.status(200).json({ result: data });
@@ -23,31 +22,18 @@ exports.check = (req, res, next) => {
         });
 };
 
-// TODO : detect patterns
-function detectAttacksPattern(data) {
-    // if ( detect pattern ) 
+// TODO : Jean - amortize data
+exports.amortizeData = function AmortizeData(oldAmortizeData, newData) {
+    return newData;
+};
+
+// TODO : Jean - detect patterns
+exports.detectAttacksPattern = function detectAttacksPattern(data) {
+    let alertCount = 0;
+    // if ( detect pattern ) {
+    // alertCount += 1;
     // console.log & create alert
-}
-
-
-const readConsumptionData = () => {
-    return new Promise((resolve, reject) => {
-        const data = [];
-
-        fs.createReadStream("./data/consumption.csv")
-            .pipe(
-                parse({
-                    delimiter: ":",
-                })
-            )
-            .on("data", function (row) {
-                data.push(row[0]);
-            })
-            .on("error", (error) => {
-                reject(error);
-            })
-            .on("end", () => {
-                resolve(data);
-            });
-    });
+    // createAlert("type", "description");
+    // }
+    return alertCount;
 };

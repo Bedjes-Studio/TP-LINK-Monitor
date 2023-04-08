@@ -6,7 +6,8 @@
     "scripts": {
         "nodemon-dev": "set NODE_ENV=dev && nodemon server.js",
         "nodemon-prod": "set NODE_ENV=prod && nodemon server.js",
-        "filldb-dev": "set NODE_ENV=dev && node mongodb/filler.js"
+        "filldb-dev": "set NODE_ENV=dev && node mongodb/filler.js",
+        "consumptionAnalyser": "set NODE_ENV=dev && node consumptionAnalyser.js"
     },
     "repository": {
         "type": "git",
