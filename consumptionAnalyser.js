@@ -20,7 +20,7 @@ function consumptionAnalyserDemon(line, oldAmortizeData) {
 
 function startConsumptionAnalyserDemon() {
     let startLine = 1;
-    consumptionAnalyserDemon(startLine, []);
+    consumptionAnalyserDemon(startLine, [0.125]);
 }
 
 mongodb.connect();

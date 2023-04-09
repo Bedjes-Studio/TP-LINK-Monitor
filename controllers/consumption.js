@@ -24,16 +24,22 @@ exports.check = (req, res, next) => {
 
 // TODO : Jean - amortize data
 exports.amortizeData = function AmortizeData(oldAmortizeData, newData) {
-    return newData;
+    let newAmortizeData = [oldAmortizeData[-1]];
+    const t0 = 1;
+    const tau = 75;
+    for (const element of newData) {
+        newAmortizeData.push((element+tau/t0*newAmortizeData[-1])/(1+tau/t0));
+    };
+    return newAmortizeData;
 };
 
 // TODO : Jean - detect patterns
 exports.detectAttacksPattern = function detectAttacksPattern(data) {
     let alertCount = 0;
-    // if ( detect pattern ) {
-    // alertCount += 1;
-    // console.log & create alert
-    // createAlert("type", "description");
-    // }
+    if ( (data[-1]-data[0])/(data.length) > 0.0018258049162961343) {
+        alertCount += 1;
+        createAlert("Consommation énergétique", "Une consommation énergétique anormale a été détecté. Cela peut résulter d'une attaque de type DOS");
+        console.log("Surconsommation detectée");
+    }
     return alertCount;
 };
