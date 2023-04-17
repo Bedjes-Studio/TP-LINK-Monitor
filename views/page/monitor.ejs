@@ -3,6 +3,10 @@
 
 <head>
     <%- include('../template/head'); %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="/static/scripts/api.js"></script>
+    <script src="/static/scripts/consumption.js"></script>
 </head>
 
 <body class="container">
@@ -16,9 +20,10 @@
             <h1 class="section-title">Analyse électrique</h1>
             <div class="section-content">
                 <div>
-                    <canvas id="myChart"></canvas>
+                    <canvas id="consumptionChart"></canvas>
                 </div>
-                <script src="../../static/scripts/alertChart.js"></script>
+                <script src="../../static/scripts/consumptionChart.js"></script>
+                <button id="refreshButton" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
             </div>
         </div>
 
