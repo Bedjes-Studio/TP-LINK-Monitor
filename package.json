@@ -21,6 +21,7 @@
     "homepage": "https://github.com/Bedjes-Studio/TP-LINK-Monitor#readme",
     "dependencies": {
         "bcrypt": "^5.1.0",
+        "chart.js": "^4.2.1",
         "cookie-parser": "^1.4.6",
         "csv-parse": "^5.3.6",
         "dotenv": "^16.0.3",

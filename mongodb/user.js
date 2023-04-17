@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
 const users = [
-    { username: "admin", password: "admin" }
+    { email: "toto@gmail.com", username: "admin", password: "admin" }
 ];
 
 exports.userFiller = () => {
