@@ -1,5 +1,5 @@
 
-const ctx = document.getElementById('myChart');
+const ctx = document.getElementById('consumptionChart');
 
 const labels = ["2h34", "2h35", "2h36", "2h37", "2h38", "2h39", "2h40"];
 const data = {
@@ -24,3 +24,9 @@ const chart = new Chart(ctx, {
       }
     }
 });
+
+function updateChart() {
+  chart.data.labels.push(4);
+  chart.data.datasets[0].data.push(40);
+  chart.update();
+}

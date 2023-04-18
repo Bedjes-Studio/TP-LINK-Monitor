@@ -8,6 +8,7 @@ let consumptionTags;
 function loadElements() {
     consumptionTags = {
         refreshButton: $("#refreshButton"),
+        consumptionChart: $("#consumptionChart"),
     };
 }
 
@@ -18,7 +19,7 @@ const getConsumption = () => {
         apiCall(getConsumptionsEndpoint, "GET")
             .then((response) => {
                 resolve(response);
-            })
+            })  
             .catch((error) => {
                 reject(error);
             });
@@ -33,6 +34,7 @@ const parseConsumptionResponse = (response) => {
         if (response.statusCode == 200) {
             // TODO : en cas de réussite
             // Mettre a jour le graph
+            updateChart();
         }
         resolve();
     });
@@ -41,10 +43,10 @@ const parseConsumptionResponse = (response) => {
 $(document).ready(() => {
     loadElements();
 
-    clientTags.getButton.click(() => {
-        getClients()
+    consumptionTags.refreshButton.click(() => {
+        getConsumption()
             .then(apiResponseParser)
-            .then(parseClientResponse)
+            .then(parseConsumptionResponse)
             .catch((error) => {
                 console.log(error);
             });
