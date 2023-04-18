@@ -15,7 +15,7 @@ const getClients = () => {
     return new Promise(function (resolve, reject) {
         getClientsEndpoint = "/api/client/read";
 
-        apiCall(loginEndpoint, "GET")
+        apiCall(getClientsEndpoint, "GET")
             .then((response) => {
                 resolve(response);
             })
