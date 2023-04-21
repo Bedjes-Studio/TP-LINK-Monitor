@@ -1,6 +1,15 @@
 // TODO : ajouter cette ligne en haut du fichier ejs pour importer le script
 // <script src="/static/scripts/login.js"></script>
 
+/*
+ * qjouter le script q l qpqge monitor
+ * crer un bouton pour telechqrger/chqrger
+ * ajouter une bqlise dqns la liste jsute une bqlise p
+ * boucle for pour ajouter le bon nobre de ligne
+ * qjouter le template qvec les donnes qu lieur dun simple p
+ * 
+ * 
+ * */
 
 let clientTags;
 

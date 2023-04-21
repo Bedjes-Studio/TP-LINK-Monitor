@@ -22,7 +22,20 @@
         <div class="section">
             <h1 class="section-title">Analyse réseau</h1>
             <div class="section-content">
-                
+                <div id="client-section">
+                    <div id="whitelist-box" class="client-column">
+                        <h3>Liste blanche</h3>
+                        <div id="whitelist-table">
+                            <%- include('../template/clientRow'); %>
+                        </div>
+                    </div>
+                    <div id="intrusion-box" class="client-column">
+                        <h3>Intrusions</h3>
+                        <div id="intrusion-table">
+                            <%- include('../template/clientRow'); %>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
