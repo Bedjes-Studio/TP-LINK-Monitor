@@ -1,30 +1,21 @@
 // TODO : ajouter cette ligne en haut du fichier ejs pour importer le script
-// <script src="/static/scripts/login.js"></script>
+// <script src="/static/scripts/alert.js"></script>
 
-/*
- * qjouter le script q l qpqge monitor
- * crer un bouton pour telechqrger/chqrger
- * ajouter une bqlise dqns la liste jsute une bqlise p
- * boucle for pour ajouter le bon nobre de ligne
- * qjouter le template qvec les donnes qu lieur dun simple p
- * 
- * 
- * */
 
-let clientTags;
+let alertTags;
 
 function loadElements() {
-    clientTags = {
-        getButton: $("#usernameInput"), // TODO : mettre l'id du bouton
-        // TODO : ajouter les blocs whitelist/inconnu
+    alertTags = {
+        getButton: $("#usernameInput"), // TODO : mettre l'id du bouton pour cherche les alertes
+        // TODO : ajouter l'id de la div dans laquelle mettre les alertes
     };
 }
 
-const getClients = () => {
+const getAlerts = () => {
     return new Promise(function (resolve, reject) {
-        getClientsEndpoint = "/api/client/read";
+        getAlertEndpoint = "/api/alert/read";
 
-        apiCall(getClientsEndpoint, "GET")
+        apiCall(getAlertEndpoint, "GET")
             .then((response) => {
                 resolve(response);
             })
@@ -34,13 +25,17 @@ const getClients = () => {
     });
 };
 
-const parseClientResponse = (response) => {
+const parseAlertResponse = (response) => {
     return new Promise(function (resolve, reject) {
         if (response.statusCode == 401) {
             // TODO : en cas d'erreur
         }
         if (response.statusCode == 200) {
             // TODO : en cas de réussite
+            // ajouter dans le html une div avec les infos
+            // tu peux acceder aux alertes avec response.alerts (c'est un tableau)
+            // données dispo : type/description/date
+            // ex : response.alerts[0].type
         }
         resolve();
     });
@@ -49,10 +44,10 @@ const parseClientResponse = (response) => {
 $(document).ready(() => {
     loadElements();
 
-    clientTags.getButton.click(() => {
-        getClients()
+    alertTags.getButton.click(() => {
+        getAlerts()
             .then(apiResponseParser)
-            .then(parseClientResponse)
+            .then(parseAlertResponse)
             .catch((error) => {
                 console.log(error);
             });

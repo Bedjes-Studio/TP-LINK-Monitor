@@ -116,6 +116,12 @@ footer {
     margin: 5px 0px 5px auto;
 }
 
+/* Monitor page */
+
+#consumptionChart {
+    background-color: white;
+}
+
 /* Index page */
 
 .img-overlay {
