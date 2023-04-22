@@ -7,6 +7,7 @@
     
     <script src="/static/scripts/api.js"></script>
     <script src="/static/scripts/consumption.js"></script>
+    <script src="/static/scripts/client.js"></script>
 </head>
 
 <body class="container">
@@ -34,16 +35,15 @@
                     <div id="whitelist-box" class="client-column">
                         <h3>Liste blanche</h3>
                         <div id="whitelist-table">
-                            <%- include('../template/clientRow'); %>
                         </div>
                     </div>
                     <div id="intrusion-box" class="client-column">
                         <h3>Intrusions</h3>
                         <div id="intrusion-table">
-                            <%- include('../template/clientRow'); %>
                         </div>
                     </div>
                 </div>
+                <button id="refreshButtonLists" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
             </div>
         </div>
     </main>

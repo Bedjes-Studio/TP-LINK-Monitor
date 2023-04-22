@@ -12,11 +12,20 @@
  * */
 
 let clientTags;
+var rowTemplate ='<div class="client-row"><p class="client-row-adress"></p><button id="sumitButton" type="button" class=" client-row-button btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
+let objets = [{ ip: 'Objet 2', whitelisted: false },
+    { ip: 'Objet 3', whitelisted: false },
+    { ip: 'Objet 4', whitelisted: false },
+    { ip: 'Objet 5', whitelisted: true },
+    { ip: 'Objet 6', whitelisted: true },
+    { ip: 'Objet 7', whitelisted: false }
+]; //Pour l'exemple
 
 function loadElements() {
     clientTags = {
-        getButton: $("#usernameInput"), // TODO : mettre l'id du bouton
-        // TODO : ajouter les blocs whitelist/inconnu
+        getButton: $("#refreshButtonLists"),
+        getWhiteList: $("#whitelist-table"),
+        getIntrusions: $("#intrusion-table"),
     };
 }
 
@@ -40,7 +49,32 @@ const parseClientResponse = (response) => {
             // TODO : en cas d'erreur
         }
         if (response.statusCode == 200) {
-            // TODO : en cas de réussite
+            const nonIntrusions = objets.filter(objet => objet.whitelisted === true);
+            const intrusions = objets.filter(objet => objet.whitelisted === false);
+
+            clientTags.getWhiteList.empty(); // A enlever si besoin selon le modèle d'import de données
+            clientTags.getIntrusions.empty(); // A enlever si besoin selon le modèle d'import de données
+
+            clientTags.getWhiteList.innerHTML = '';
+            clientTags.getIntrusions.innerHTML = '';
+            nonIntrusions.forEach((objet) => {
+                let row = $(rowTemplate);
+                row.find('.client-row-adress').text(objet.ip);
+                row.find('.client-row-button').click(() => {
+                    // CHANGE L'ELEMENT en whitelisted=false DANS LA BDD
+                    //row.remove();
+                });
+                clientTags.getWhiteList.append(row);
+            });
+            intrusions.forEach((objet) => {
+                let row = $(rowTemplate);
+                row.find('.client-row-adress').text(objet.ip);
+                row.find('.client-row-button').click(() => {
+                    // CHANGE L'ELEMENT en whitelisted=true DANS LA BDD
+                    //row.remove();
+                });
+                clientTags.getIntrusions.append(row);
+            });
         }
         resolve();
     });
