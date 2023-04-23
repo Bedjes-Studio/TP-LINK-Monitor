@@ -23,7 +23,7 @@ let objets = [{ ip: 'Objet 2', whitelisted: false },
     { ip: 'Objet 7', whitelisted: false }
 ]; //Pour l'exemple
 
-function loadElements() {
+function loadClientElements() {
     clientTags = {
         getButton: $("#refreshButtonLists"),
         getWhiteList: $("#whitelist-table"),
@@ -86,7 +86,7 @@ const parseClientResponse = (response) => {
 };
 
 $(document).ready(() => {
-    loadElements();
+    loadClientElements();
 
     clientTags.getButton.click(() => {
         getClients()
