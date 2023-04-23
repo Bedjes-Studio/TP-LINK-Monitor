@@ -5,7 +5,7 @@
 let consumptionTags;
 // add chart management
 
-function loadElements() {
+function loadConsumptionElements() {
     consumptionTags = {
         refreshButton: $("#refreshButton"),
         consumptionChart: $("#consumptionChart"),
@@ -34,16 +34,18 @@ const parseConsumptionResponse = (response) => {
         if (response.statusCode == 200) {
             // TODO : en cas de réussite
             // Mettre a jour le graph
-            updateChart();
+            console.log("Consumption data:" + response);
+            updateChart(response.result.values, response.result.timestamps);
         }
         resolve();
     });
 };
 
 $(document).ready(() => {
-    loadElements();
+    loadConsumptionElements();
 
     consumptionTags.refreshButton.click(() => {
+        console.log("Refreshing electric consumption data");
         getConsumption()
             .then(apiResponseParser)
             .then(parseConsumptionResponse)
