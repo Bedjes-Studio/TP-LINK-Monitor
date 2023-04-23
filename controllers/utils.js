@@ -19,12 +19,12 @@ exports.readCsvFromLine = (filepath, line) => {
         fs.createReadStream(filepath)
             .pipe(
                 parse({
-                    delimiter: ":",
+                    delimiter: ",",
                     from_line: line,
                 })
             )
             .on("data", function (row) {
-                data.push(row[0]);
+                data.push({ value: row[0], timestamp: row[1] });
             })
             .on("error", (error) => {
                 reject(error);
