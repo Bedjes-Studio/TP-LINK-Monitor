@@ -19,7 +19,7 @@ exports.readCsvFromLine = (filepath, line) => {
         fs.createReadStream(filepath)
             .pipe(
                 parse({
-                    delimiter: ",",
+                    delimiter: "_",
                     from_line: line,
                 })
             )
