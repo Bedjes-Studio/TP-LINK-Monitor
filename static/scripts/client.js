@@ -7,21 +7,15 @@
  * ajouter une bqlise dqns la liste jsute une bqlise p
  * boucle for pour ajouter le bon nobre de ligne
  * qjouter le template qvec les donnes qu lieur dun simple p
- * 
- * 
+ *
+ *
  * */
 
 let clientTags;
-var rowTemplateWhitelist ='<div class="client-row"><p class="client-row-adress"></p><button id="deleteFromWhitelist" type="button" class=" client-row-button-delete-whitelist btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
-var rowTemplateConnection = '<div class="client-row"><p class="client-row-adress"></p><button id="toWhitelistButton" type="button" class=" client-row-button-to-whitelist btn btn-warning"><img src="/static/images/arrow.png" alt="Close X" width="13" height="13" /></button></p><button id="removeConnectionButton" type="button" class=" client-row-button-remove-connection btn btn-success"><img src="/static/images/check.png" alt="Close X" width="13" height="13" /></button></div>';
-
-let objets = [{ ip: 'Objet 2', whitelisted: false },
-    { ip: 'Objet 3', whitelisted: false },
-    { ip: 'Objet 4', whitelisted: false },
-    { ip: 'Objet 5', whitelisted: true },
-    { ip: 'Objet 6', whitelisted: true },
-    { ip: 'Objet 7', whitelisted: false }
-]; //Pour l'exemple
+var rowTemplateWhitelist =
+    '<div class="client-row"><p class="client-row-adress"></p><button id="deleteFromWhitelist" type="button" class=" client-row-button-delete-whitelist btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
+var rowTemplateConnection =
+    '<div class="client-row"><p class="client-row-adress"></p><button id="toWhitelistButton" type="button" class=" client-row-button-to-whitelist btn btn-warning"><img src="/static/images/arrow.png" alt="Close X" width="13" height="13" /></button></p><button id="removeConnectionButton" type="button" class=" client-row-button-remove-connection btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
 
 function loadClientElements() {
     clientTags = {
@@ -33,9 +27,45 @@ function loadClientElements() {
 
 const getClients = () => {
     return new Promise(function (resolve, reject) {
-        getClientsEndpoint = "/api/client/read";
+        let getClientsEndpoint = "/api/client/read";
 
         apiCall(getClientsEndpoint, "GET")
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+const changeWhitelistClient = (ip) => {
+    return new Promise(function (resolve, reject) {
+        let whitelistEndpoint = "/api/client/whitelist";
+
+        body = JSON.stringify({
+            ip: ip,
+        });
+
+        apiCall(whitelistEndpoint, "POST", body)
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+const deleteClient = (ip) => {
+    return new Promise(function (resolve, reject) {
+        let deleteEndpoint = "/api/client/delete";
+
+        body = JSON.stringify({
+            ip: ip,
+        });
+
+        apiCall(deleteEndpoint, "POST", body)
             .then((response) => {
                 resolve(response);
             })
@@ -50,34 +80,44 @@ const parseClientResponse = (response) => {
         if (response.statusCode == 401) {
             // TODO : en cas d'erreur
         }
-        if (response.statusCode == 200) {
-            const nonIntrusions = objets.filter(objet => objet.whitelisted === true);
-            const intrusions = objets.filter(objet => objet.whitelisted === false);
+        if (response.statusCode == 200 || response.statusCode == 304) {
+            const nonIntrusions = response.clients.filter((client) => client.whitelisted === true);
+            const intrusions = response.clients.filter((client) => client.whitelisted === false);
 
-            clientTags.getWhiteList.empty(); // A enlever si besoin selon le modèle d'import de données
-            clientTags.getIntrusions.empty(); // A enlever si besoin selon le modèle d'import de données
+            clientTags.getWhiteList.empty();
+            clientTags.getIntrusions.empty();
 
-            clientTags.getWhiteList.innerHTML = '';
-            clientTags.getIntrusions.innerHTML = '';
-            nonIntrusions.forEach((objet) => {
+            clientTags.getWhiteList.innerHTML = "";
+            clientTags.getIntrusions.innerHTML = "";
+            nonIntrusions.forEach((client) => {
                 let row = $(rowTemplateWhitelist);
-                row.find('.client-row-adress').text(objet.ip);
-                row.find('.client-row-button-delete-whitelist').click(() => {
-                    // CHANGE L'ELEMENT en whitelisted=false DANS LA BDD
-                    //row.remove();
+                row.find(".client-row-adress").text(client.ip);
+                row.find(".client-row-button-delete-whitelist").click(() => {
+                    deleteClient(client.ip)
+                        .then(clientTags.getButton.click())
+                        .catch((error) => {
+                            console.log(error);
+                        });
                 });
                 clientTags.getWhiteList.append(row);
             });
-            intrusions.forEach((objet) => {
+            intrusions.forEach((client) => {
                 let row = $(rowTemplateConnection);
-                row.find('.client-row-adress').text(objet.ip);
-                row.find('.client-row-button-to-whitelist').click(() => {
-                    // CHANGE L'ELEMENT en whitelisted=true DANS LA BDD
-                    //row.remove();
+                row.find(".client-row-adress").text(client.ip);
+                row.find(".client-row-button-to-whitelist").click(() => {
+                    changeWhitelistClient(client.ip)
+                        .then(clientTags.getButton.click())
+                        .catch((error) => {
+                            console.log(error);
+                        });
                 });
-                row.find('.client-row-button-remove-connection').click(() => {
-
-                })
+                row.find(".client-row-button-remove-connection").click(() => {
+                    deleteClient(client.ip)
+                        .then(clientTags.getButton.click())
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                });
                 clientTags.getIntrusions.append(row);
             });
         }
