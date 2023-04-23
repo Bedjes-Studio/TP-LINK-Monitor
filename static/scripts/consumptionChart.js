@@ -6,12 +6,20 @@ const labels = [];
 const data = {
   labels: labels,
   datasets: [{
-    label: 'Consommation usuelle',
+    label: 'Consommation énergétique',
     data: [],
+    segment: {
+      borderColor: (ctx) =>  {
+        if (ctx.chart.data.datasets[0].data[ctx.p0DataIndex] <= threshholds.suspicious)
+          return chartColors.blue;
+        else if (ctx.chart.data.datasets[0].data[ctx.p0DataIndex] <= threshholds.suspect)
+          return chartColors.yellow;
+        else
+          return chartColors.red;
+    },
     fill: false,
-    borderColor: chartColors.blue,
-    tension: 0.1
-  }, {
+    tension: 0.1}
+  }/*, {
     label: 'Consommation suspecte',
     data: [],
     fill: false,
@@ -23,7 +31,7 @@ const data = {
     fill: false,
     borderColor: chartColors.red,
     tension: 0.1
-  }]
+  }*/]
 };
 
 const chart = new Chart(ctx, {
@@ -56,7 +64,7 @@ function addDataToRightDataset(value) {
     chart.data.datasets[0].data.push(NaN);
   }
   chart.data.datasets[arrayIndex].data.push(value);
-  console.log("Added data " + value + " to array " + arrayIndex);
+  console.log("Added data " + value + " to array " + arrayIndex);     
 }
 
 function updateChart(values, timestamps) {
@@ -69,7 +77,8 @@ function updateChart(values, timestamps) {
     {
       chart.data.labels.push(timestamps[currentMaxIndex + i])
       let value = values[currentMaxIndex + i];
-      addDataToRightDataset(value);
+      //addDataToRightDataset(value);
+      chart.data.datasets[0].data.push(value);
     }
   }
   chart.update();
