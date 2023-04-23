@@ -22,12 +22,13 @@ exports.read = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-    Client.deleteOne({ _id: req.body.id })
+    Client.deleteOne({ ip: req.body.ip })
         .then((result) => {
             if (result.deletedCount == 0) {
-                res.status(400).json({ result: "Client with id " + req.body.id + " not found" });
+                res.status(400).json({ result: "Client with ip " + req.body.ip + " not found" });
+            } else {
+                res.status(200).json({ result: result.deletedCount + " client with ip " + req.body.ip + " deleted" });
             }
-            res.status(200).json({ result: result.deletedCount + " client with id " + req.body.id + " deleted" });
         })
         .catch((error) => {
             errorHandler(error, res);
@@ -35,9 +36,8 @@ exports.delete = (req, res, next) => {
 };
 
 exports.whitelist = (req, res, next) => {
-    Client.updateOne({ _id: req.body.id }, { whitelisted: true })
+    Client.updateOne({ ip: req.body.ip }, { whitelisted: true })
         .then((result) => {
-            console.log(result);
             res.status(200).json({ result: "Client whitelisted" });
         })
         .catch((error) => {
@@ -46,9 +46,8 @@ exports.whitelist = (req, res, next) => {
 };
 
 exports.unWhitelist = (req, res, next) => {
-    Client.updateOne({ _id: req.body.id }, { whitelisted: false })
+    Client.updateOne({ ip: req.body.ip }, { whitelisted: false })
         .then((result) => {
-            console.log(result);
             res.status(200).json({ result: "Client unwhitelisted" });
         })
         .catch((error) => {
@@ -66,3 +65,5 @@ const createClient = (ip, whitelisted) => {
         client.save().then(resolve).catch(reject);
     });
 };
+
+exports.createClient = createClient;
