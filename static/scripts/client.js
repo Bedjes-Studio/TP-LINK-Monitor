@@ -12,7 +12,9 @@
  * */
 
 let clientTags;
-var rowTemplate ='<div class="client-row"><p class="client-row-adress"></p><button id="sumitButton" type="button" class=" client-row-button btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
+var rowTemplateWhitelist ='<div class="client-row"><p class="client-row-adress"></p><button id="deleteFromWhitelist" type="button" class=" client-row-button-delete-whitelist btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
+var rowTemplateConnection = '<div class="client-row"><p class="client-row-adress"></p><button id="toWhitelistButton" type="button" class=" client-row-button-to-whitelist btn btn-warning"><img src="/static/images/arrow.png" alt="Close X" width="13" height="13" /></button></p><button id="removeConnectionButton" type="button" class=" client-row-button-remove-connection btn btn-success"><img src="/static/images/check.png" alt="Close X" width="13" height="13" /></button></div>';
+
 let objets = [{ ip: 'Objet 2', whitelisted: false },
     { ip: 'Objet 3', whitelisted: false },
     { ip: 'Objet 4', whitelisted: false },
@@ -58,21 +60,24 @@ const parseClientResponse = (response) => {
             clientTags.getWhiteList.innerHTML = '';
             clientTags.getIntrusions.innerHTML = '';
             nonIntrusions.forEach((objet) => {
-                let row = $(rowTemplate);
+                let row = $(rowTemplateWhitelist);
                 row.find('.client-row-adress').text(objet.ip);
-                row.find('.client-row-button').click(() => {
+                row.find('.client-row-button-delete-whitelist').click(() => {
                     // CHANGE L'ELEMENT en whitelisted=false DANS LA BDD
                     //row.remove();
                 });
                 clientTags.getWhiteList.append(row);
             });
             intrusions.forEach((objet) => {
-                let row = $(rowTemplate);
+                let row = $(rowTemplateConnection);
                 row.find('.client-row-adress').text(objet.ip);
-                row.find('.client-row-button').click(() => {
+                row.find('.client-row-button-to-whitelist').click(() => {
                     // CHANGE L'ELEMENT en whitelisted=true DANS LA BDD
                     //row.remove();
                 });
+                row.find('.client-row-button-remove-connection').click(() => {
+
+                })
                 clientTags.getIntrusions.append(row);
             });
         }
