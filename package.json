@@ -9,6 +9,7 @@
         "nodemon-prod": "set NODE_ENV=prod && nodemon server.js",
         "filldb-dev": "set NODE_ENV=dev && node mongodb/filler.js",
         "consumptionAnalyser": "set NODE_ENV=dev && node consumptionAnalyser.js",
+        "networkAnalyser": "set NODE_ENV=dev && node networkAnalyser.js",
         "simulateConsumption": "py simulateur.py"
     },
     "repository": {
