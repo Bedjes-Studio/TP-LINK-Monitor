@@ -1,24 +1,31 @@
 const ctx = document.getElementById('consumptionChart');
 
 const chartColors = {  red: 'rgb(255, 99, 132)',   orange: 'rgb(255, 159, 64)',    yellow: 'rgb(255, 205, 86)',    green: 'rgb(75, 192, 192)',     blue: 'rgb(54, 162, 235)',  purple: 'rgb(153, 102, 255)',   grey: 'rgb(201, 203, 207)' }; 
-let threshholds = {suspicious: 50, suspect: 100}
+let threshholds = {suspicious: 0.2, suspect: 0.4}
 const labels = [];
+
+function chartColor(ctx) {
+  if (ctx.chart.data.datasets[0].data[ctx.p0DataIndex] <= threshholds.suspicious)
+    return chartColors.blue;
+  else if (ctx.chart.data.datasets[0].data[ctx.p0DataIndex] <= threshholds.suspect)
+    return chartColors.yellow;
+  else
+    return chartColors.red;
+}
+
 const data = {
   labels: labels,
   datasets: [{
     label: 'Consommation énergétique',
     data: [],
     segment: {
-      borderColor: (ctx) =>  {
-        if (ctx.chart.data.datasets[0].data[ctx.p0DataIndex] <= threshholds.suspicious)
-          return chartColors.blue;
-        else if (ctx.chart.data.datasets[0].data[ctx.p0DataIndex] <= threshholds.suspect)
-          return chartColors.yellow;
-        else
-          return chartColors.red;
+      borderColor: chartColor,
+      backgroundColor: chartColor,
+      pointBorderColor: chartColor,
+      pointBackgroundColor: chartColor,
     },
     fill: false,
-    tension: 0.1}
+    tension: 0.1
   }/*, {
     label: 'Consommation suspecte',
     data: [],
