@@ -4,7 +4,7 @@ const Port = require("../models/port");
 exports.create = (req, res, next) => {
     const port = new Port({
         number: req.body.number,
-        open: true,
+        open: req.body.open,
     });
 
     port.save()
