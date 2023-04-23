@@ -219,7 +219,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ip\": \"New ip\",\r\n    \"whitelisted\": false\r\n}",
+							"raw": "{\r\n    \"ip\": \"127.0.0.1\",\r\n    \"whitelisted\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
