@@ -90,7 +90,17 @@ footer {
     margin: 0;
 }
 
-.client-row-button {
+.client-row-button-delete-whitelist {
+    padding-top: 0px;
+    height: 25px;
+}
+
+.client-row-button-to-whitelist {
+padding-top: 0px;
+height: 25px;
+}
+
+.client-row-button-remove-connection {
     padding-top: 0px;
     height: 25px;
 }
