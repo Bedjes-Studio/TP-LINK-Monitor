@@ -22,6 +22,8 @@ function loadPortElements() {
         getButton: $("#refreshButtonLists"),
         getPortWhiteList: $("#whitelist-port-table"),
         getPortIntrusions: $("#intrusion-port-table"),
+        getAddOpenButton: $("#submitButtonPort"),
+        getAddOpenInput: $("#inputPortNumber"),
     };
 }
 
@@ -45,6 +47,25 @@ const changeWhitelistPort = (number) => {
 
         body = JSON.stringify({
             number: number,
+        });
+
+        apiCall(whitelistEndpoint, "POST", body)
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+const addOpenPort = (number) => {
+    return new Promise(function (resolve, reject) {
+        let whitelistEndpoint = "/api/port/create";
+
+        body = JSON.stringify({
+            number: number,
+            open: true,
         });
 
         apiCall(whitelistEndpoint, "POST", body)
@@ -132,6 +153,14 @@ $(document).ready(() => {
         getPorts()
             .then(apiResponseParser)
             .then(parsePortResponse)
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+
+    portTags.getAddOpenButton.click(() => {
+        addOpenPort(parseInt(portTags.getAddOpenInput.val()))
+            .then(portTags.getButton.click())
             .catch((error) => {
                 console.log(error);
             });

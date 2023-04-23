@@ -22,6 +22,8 @@ function loadClientElements() {
         getButton: $("#refreshButtonLists"),
         getWhiteList: $("#whitelist-table"),
         getIntrusions: $("#intrusion-table"),
+        getAddWhitelistButton: $("#submitButtonIP"),
+        getAddWhitelistInput: $("#inputClientIP"),
     };
 }
 
@@ -45,6 +47,25 @@ const changeWhitelistClient = (ip) => {
 
         body = JSON.stringify({
             ip: ip,
+        });
+
+        apiCall(whitelistEndpoint, "POST", body)
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+const addWhitelistClient = (ip) => {
+    return new Promise(function (resolve, reject) {
+        let whitelistEndpoint = "/api/client/create";
+
+        body = JSON.stringify({
+            ip: ip,
+            whitelisted: true,
         });
 
         apiCall(whitelistEndpoint, "POST", body)
@@ -132,6 +153,14 @@ $(document).ready(() => {
         getClients()
             .then(apiResponseParser)
             .then(parseClientResponse)
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+
+    clientTags.getAddWhitelistButton.click(() => {
+        addWhitelistClient(clientTags.getAddWhitelistInput.val())
+            .then(clientTags.getButton.click())
             .catch((error) => {
                 console.log(error);
             });

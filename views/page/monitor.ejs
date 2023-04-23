@@ -54,6 +54,11 @@
                         </div>
                     </div>
                 </div>
+                <div id="addIPToWhitelist">
+                  <label for="inputClientIP">Ajouter une IP à la whitelist:</label>
+                  <input type="text" id="inputClientIP" name="ip-adress">
+                  <button id="submitButtonIP">Ajouter</button>
+                </div>
                 <div id="port-section">
                     <div id="whitelist-port-box" class="client-column">
                         <h3>Ports ouverts</h3>
@@ -65,6 +70,11 @@
                         <div id="intrusion-port-table">
                         </div>
                     </div>
+                </div>
+                <div id="addPortNumberToOpenList">
+                  <label for="inputPortNumber">Ajouter un port à la liste des ports ouverts:</label>
+                  <input type="number" id="inputPortNumber" name="port-number">
+                  <button id="submitButtonPort">Ajouter</button>
                 </div>
                 <button id="refreshButtonLists" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
             </div>
