@@ -14,7 +14,7 @@ exports.wait = (ms) => {
 
 exports.readCsvFromLine = (filepath, line) => {
     return new Promise((resolve, reject) => {
-        const data = [];
+        const data = { values: [], timestamps: [] };
 
         fs.createReadStream(filepath)
             .pipe(
@@ -24,7 +24,8 @@ exports.readCsvFromLine = (filepath, line) => {
                 })
             )
             .on("data", function (row) {
-                data.push({ value: row[0], timestamp: row[1] });
+                data.values.push(row[0]);
+                data.timestamps.push(row[1]);
             })
             .on("error", (error) => {
                 reject(error);
