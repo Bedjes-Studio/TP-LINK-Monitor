@@ -8,6 +8,8 @@
     <script src="/static/scripts/api.js"></script>
     <script src="/static/scripts/consumption.js"></script>
     <script src="/static/scripts/client.js"></script>
+    <script src="/static/scripts/alert.js"></script>
+    <script src="/static/scripts/port.js"></script>
 </head>
 
 <body class="container">
@@ -17,6 +19,15 @@
     </header>
 
     <main>
+        <div class="section">
+            <h1 class="section-title">Alertes</h1>
+            <div class="section-content">
+                        <div id="alert-list">
+                        </div>
+                <button id="refreshButtonAlert" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
+            </div>
+        </div>
+
         <div class="section">
             <h1 class="section-title">Analyse électrique</h1>
             <div class="section-content">
@@ -40,6 +51,18 @@
                     <div id="intrusion-box" class="client-column">
                         <h3>Intrusions</h3>
                         <div id="intrusion-table">
+                        </div>
+                    </div>
+                </div>
+                <div id="port-section">
+                    <div id="whitelist-port-box" class="client-column">
+                        <h3>Ports ouverts</h3>
+                        <div id="whitelist-port-table">
+                        </div>
+                    </div>
+                    <div id="intrusion-port-box" class="client-column">
+                        <h3>Activité sur port fermé détectée</h3>
+                        <div id="intrusion-port-table">
                         </div>
                     </div>
                 </div>

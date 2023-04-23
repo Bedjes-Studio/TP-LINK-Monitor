@@ -71,9 +71,14 @@ footer {
     display: flex;
 }
 
+#port-section {
+    display: flex;
+}
+
 .client-column {
     padding: 10px;
-    flex-grow: 1;
+    flex-basis: 50%;
+    flex-grow: 0;
     text-align: center;
 }
 
@@ -90,17 +95,65 @@ footer {
     margin: 0;
 }
 
+.port-row-number {
+    background-color: white;
+    flex-grow: 1;
+    color: black;
+    margin: 0;
+}
+
+.alert-row-type {
+    background-color: white;
+    flex-grow: 1;
+    color: black;
+    margin: 0;
+}
+
+.alert-row-description {
+    background-color: white;
+    flex-grow: 1;
+    color: black;
+    margin: 0;
+}
+
+.alert-row-date {
+    background-color: white;
+    flex-grow: 1;
+    color: black;
+    margin: 0;
+}
+
 .client-row-button-delete-whitelist {
     padding-top: 0px;
     height: 25px;
 }
 
+.alert-row-button-delete {
+    padding-top: 0px;
+    height: 25px;
+}
+
 .client-row-button-to-whitelist {
-padding-top: 0px;
-height: 25px;
+    padding-top: 0px;
+    height: 25px;
 }
 
 .client-row-button-remove-connection {
+    padding-top: 0px;
+    height: 25px;
+}
+
+.port-row-button-delete-whitelist {
+    padding-top: 0px;
+    height: 25px;
+}
+
+.port-row-button-remove-connection {
+    padding-top: 0px;
+    height: 25px;
+}
+
+.port-row-button-to-whitelist {
     padding-top: 0px;
     height: 25px;
 }

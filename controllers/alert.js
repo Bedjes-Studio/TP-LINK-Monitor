@@ -27,6 +27,7 @@ exports.delete = (req, res, next) => {
         .then((result) => {
             if (result.deletedCount == 0) {
                 res.status(400).json({ result: "Alert with id " + req.body.id + " not found" });
+                return;
             }
             res.status(200).json({ result: result.deletedCount + " alert with id " + req.body.id + " deleted" });
         })
