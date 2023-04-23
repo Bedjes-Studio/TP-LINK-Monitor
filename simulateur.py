@@ -25,7 +25,7 @@ from matplotlib import style
 import time
 
 # Récupération des données réelles
-file = open("DonneesRéelles.txt", "r")
+file = open("./data_simulator_python/donneesReelles.csv", "r")
 lignes = file.readlines()
 file.close()
 lignes = lignes[:-1]
@@ -43,7 +43,7 @@ def animate(i):
     # Simulation des nouvelles données chaque seconde
     if(rnd.randint(1, 20) == 1 or index >= n) :
         index = rnd.randint(0, n-1-rnd.randint(10, 15))
-    file = open("donneesSimulees.csv", "a")
+    file = open("./data_simulator_python/donneesSimulees.csv", "a")
     t = time.localtime()
     current_time = time.strftime("%H:%M:%S", t)
     if (State == "DDOS") :
