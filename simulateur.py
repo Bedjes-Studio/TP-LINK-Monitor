@@ -1,18 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Apr 18 05:25:31 2023
-
-@author: jeant
-"""
-"""
-def animate(i):
-    line.set_ydata(np.sin(x+i/10.0))  # update the data
-    return line,
-
-ani = animation.FuncAnimation(fig, animate, np.arange(1, 200), interval=25, blit=False)
-
-"""
-
 # Imports
 import tkinter as tk
 import tkinter.messagebox as msg
