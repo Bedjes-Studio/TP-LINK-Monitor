@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const clientSchema = mongoose.Schema({
-    ip: { type: String, required: true },
+    ip: { type: String, required: true, unique: true },
     whitelisted: { type: Boolean, required: true },
 });
 
