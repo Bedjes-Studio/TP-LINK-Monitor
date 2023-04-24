@@ -13,6 +13,7 @@ exports.create = (req, res, next) => {
 
 exports.read = (req, res, next) => {
     Client.find({})
+        .sort({ ip: 1 })
         .then((clients) => {
             res.status(200).json({ clients: clients });
         })

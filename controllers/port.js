@@ -2,12 +2,7 @@ const { errorHandler } = require("./utils");
 const Port = require("../models/port");
 
 exports.create = (req, res, next) => {
-    const port = new Port({
-        number: req.body.number,
-        open: req.body.open,
-    });
-
-    port.save()
+    createPort(req.body.number, req.body.open)
         .then(() => {
             res.status(200).json({ result: "Port created" });
         })
@@ -18,6 +13,7 @@ exports.create = (req, res, next) => {
 
 exports.read = (req, res, next) => {
     Port.find({})
+        .sort({ number: 1 })
         .then((ports) => {
             res.status(200).json({ ports: ports });
         })
@@ -30,7 +26,7 @@ exports.delete = (req, res, next) => {
     Port.deleteOne({ number: req.body.number })
         .then((result) => {
             if (result.deletedCount == 0) {
-                res.status(400).json({ result: "Port with number " + req.body.number  + " not found" });
+                res.status(400).json({ result: "Port with number " + req.body.number + " not found" });
             }
             res.status(200).json({ result: result.deletedCount + " port with number " + req.body.number + " deleted" });
         })
@@ -58,3 +54,16 @@ exports.closePort = (req, res, next) => {
             errorHandler(error, res);
         });
 };
+
+const createPort = (number, open) => {
+    return new Promise(function (resolve, reject) {
+        const port = new Port({
+            number: number,
+            open: open,
+        });
+
+        port.save().then(resolve).catch(reject);
+    });
+};
+
+exports.createPort = createPort;
