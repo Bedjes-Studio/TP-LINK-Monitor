@@ -5,6 +5,7 @@ const config = require("./config");
 
 function consumptionAnalyserDemon(line, oldAmortizeData) {
     readCsvFromLine("./data/" + config.file.consumption, line).then((data) => {
+        // readCsvFromLine("./data/historic_consumption.csv", line).then((data) => { // test with historic
         data = data.values;
         if (data.length > 0) {
             console.log("Readed from " + line + " to " + (line + data.length - 1));
