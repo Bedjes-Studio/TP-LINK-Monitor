@@ -4,13 +4,15 @@
     "description": "TP-LINK-Monitor",
     "main": "server.js",
     "scripts": {
-        "install-python": "pip install -r python_requirements.txt",
+        "postinstall": "pip install -r python_requirements.txt",
+        "filldb": "set NODE_ENV=dev && node mongodb/filler.js",
+        "filldb-sim": "set NODE_ENV=dev && node mongodb/filler.js",
         "nodemon-dev": "set NODE_ENV=dev && nodemon server.js",
-        "nodemon-prod": "set NODE_ENV=prod && nodemon server.js",
-        "filldb-dev": "set NODE_ENV=dev && node mongodb/filler.js",
-        "consumptionAnalyser": "set NODE_ENV=dev && node consumptionAnalyser.js",
+        "nodemon-sim": "set NODE_ENV=sim && nodemon server.js",
+        "consumptionAnalyser-dev": "set NODE_ENV=dev && node consumptionAnalyser.js",
+        "consumptionAnalyser-sim": "set NODE_ENV=sim && node consumptionAnalyser.js",
         "networkAnalyser": "set NODE_ENV=dev && node networkAnalyser.js",
-        "simulateConsumption": "py simulateur.py"
+        "simulate": "py simulateur.py"
     },
     "repository": {
         "type": "git",

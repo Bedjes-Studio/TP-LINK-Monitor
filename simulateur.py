@@ -10,7 +10,7 @@ from matplotlib import style
 import time
 
 # Récupération des données réelles
-file = open("./data_simulator_python/donneesReelles.csv", "r")
+file = open("./data/historic_consumption.csv", "r")
 lignes = file.readlines()
 file.close()
 lignes = lignes[:-1]
@@ -28,7 +28,7 @@ def animate(i):
     # Simulation des nouvelles données chaque seconde
     if(rnd.randint(1, 20) == 1 or index >= n) :
         index = rnd.randint(0, n-1-rnd.randint(10, 15))
-    file = open("./data_simulator_python/donneesSimulees.csv", "a")
+    file = open("./data/simulated_consumption.csv", "a")
     t = time.localtime()
     current_time = time.strftime("%H:%M:%S", t)
     if (State == "DDOS") :

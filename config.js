@@ -16,6 +16,9 @@ const dev = {
         port: parseInt(process.env.DEV_MONGODB_PORT) || 27017,
         name: process.env.DEV_MONGODB_NAME || "TP-LINK-Monitor",
     },
+    file: {
+        consumption: process.env.DEV_FILE_CONSUMPTION || "live_consumption.csv",
+    },
     mail: {
         user: process.env.DEV_MAIL_USER || "IoTUQAC@gmail.com",
         password: process.env.DEV_MAIL_PASSWORD || "azerty",
@@ -36,6 +39,9 @@ const sim = {
         host: process.env.SIM_MONGODB_HOST || "mongodb://127.0.0.1",
         port: parseInt(process.env.SIM_MONGODB_PORT) || 27017,
         name: process.env.SIM_MONGODB_NAME || "TP-LINK-Monitor",
+    },
+    file: {
+        consumption: process.env.SIM_FILE_CONSUMPTION || "simulated_consumption.csv",
     },
     mail: {
         user: process.env.SIM_MAIL_USER || "IoTUQAC@gmail.com",

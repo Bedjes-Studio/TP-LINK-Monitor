@@ -1,8 +1,9 @@
 const { errorHandler, readCsvFromLine } = require("./utils");
 const { createAlert } = require("./alert");
+const config = require('../config');
 
 exports.read = (req, res, next) => {
-    readCsvFromLine("./data/consumption.csv", 1)
+    readCsvFromLine("./data/" + config.file.consumption, 1)
         .then((data) => {
             res.status(200).json({ result: data });
         })
