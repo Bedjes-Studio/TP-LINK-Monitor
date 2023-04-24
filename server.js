@@ -2,7 +2,6 @@ const http = require('http');
 const app = require('./app');
 const config = require('./config');
 
-
 const port = config.server.port;
 app.set('port', port);
 
