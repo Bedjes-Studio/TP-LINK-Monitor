@@ -6,6 +6,8 @@ const Client = require("./models/client");
 const Port = require("./models/port");
 const { createClient } = require("./controllers/client");
 const { createPort } = require("./controllers/port");
+const { wait } = require("./controllers/utils");
+const { createAlert } = require("./controllers/alert");
 
 function formatIPData(data) {
     let formattedData = data.split(/\r?\n|\r|\n/g).filter((row) => row != ""); // split lines and remove empty
@@ -87,7 +89,7 @@ function analyseIps(data) {
                         .then(() => {
                             console.log("Client " + ip + " blacklisted");
                             // TODO : kill child process and spawn again ?
-                            // create alert
+                            createAlert("New ip detected", "New ip is " + ip + " and isn't whitelisted.");
                         })
                         .catch((error) => {
                             console.log("Client " + ip + " is ever blacklisted");
@@ -141,7 +143,6 @@ const createPortFilters = () => {
     return new Promise(function (resolve, reject) {
         Port.find({})
             .then((ports) => {
-                // TODO : set passerelle ip
                 let filter = '-Y "ip.dst==' + config.router.ip;
                 if (ports.length == 0) {
                     filter += '"';
@@ -184,8 +185,7 @@ function analysePorts(data) {
                     createPort(port, false)
                         .then(() => {
                             console.log("Warning on port " + port + " created");
-                            // TODO : kill child process and spawn again ?
-                            // create alert
+                            createAlert("Activity on router port detected", "Port " + port + " have been used but isn't whitelisted.");
                         })
                         .catch((error) => {
                             console.log("Warning on port " + port + " already exist");
@@ -198,9 +198,60 @@ function analysePorts(data) {
         });
 }
 
+let totalRequests = 0;
+
+function startCountDemon() {
+    // TODO : select wifi interface
+    const captureInterface = "-i 4";
+    const fieldPrintOption = '-T fields -E "header=n"';
+    const fields = "-e ip.src";
+    const lineBuffered = "-l";
+
+    const child = spawn('".\\Wireshark\\tshark"', [captureInterface, fieldPrintOption, fields, lineBuffered], {
+        shell: true,
+    });
+
+    child.stdout.on("data", (data) => {
+        totalRequests += data
+            .toString()
+            .split(/\r?\n|\r|\n/g)
+            .filter((row) => row != "").length;
+    });
+
+    child.stderr.on("data", (data) => {
+        console.error(`stderr: ${data}`);
+    });
+
+    child.on("error", (error) => {
+        console.error(`error: ${error.message}`);
+    });
+
+    child.on("close", (code) => {
+        console.log(`child process exited with code ${code}`);
+    });
+
+    countRequests();
+}
+
+function countRequests() {
+    wait(5000).then(() => {
+        console.log(totalRequests);
+        if (totalRequests > config.router.ddosLimit) {
+            console.log("LIMIT");
+            createAlert(
+                "Many requests detected",
+                totalRequests + " requests detected in less than 5 seconds. Tigger limit is " + config.router.ddosLimit
+            );
+        }
+        totalRequests = 0;
+        countRequests();
+    });
+}
+
 function startTsharkDemon() {
-    // startIpDemon();
+    startIpDemon();
     startPortDemon();
+    startCountDemon();
 }
 
 mongodb.connect();
