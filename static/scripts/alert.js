@@ -1,16 +1,18 @@
 // TODO : ajouter cette ligne en haut du fichier ejs pour importer le script
 // <script src="/static/scripts/alert.js"></script>
 
-
 let alertTags;
-var rowTemplateAlertlist = '<div class="client-row"><p class="alert-row-type"></p><p class="alert-row-description"></p><p class="alert-row-date"></p><button id="deleteAlert" type="button" class="alert-row-button-delete btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
-let alerts = [{ type: 'Objet 1', description: 'Test1', date: new Date('01/01/2001') },
-{ type: 'Objet 2', description: 'Test2', date: new Date('02/02/2001') }];
+var rowTemplateAlertlist =
+    '<div class="client-row"><p class="alert-row-type"></p><p class="alert-row-description"></p><p class="alert-row-date"></p><button id="deleteAlert" type="button" class="alert-row-button-delete btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
+let alerts = [
+    { type: "Objet 1", description: "Test1", date: new Date("01/01/2001") },
+    { type: "Objet 2", description: "Test2", date: new Date("02/02/2001") },
+];
 
 function loadAlertElements() {
     alertTags = {
         getButton: $("#refreshButtonAlert"), // TODO : mettre l'id du bouton pour cherche les alertes
-        getAlertList: $("#alert-list")
+        getAlertList: $("#alert-list"),
     };
 }
 
@@ -54,13 +56,13 @@ const parseAlertResponse = (response) => {
         if (response.statusCode == 200) {
             alerts = response.alerts;
             alertTags.getAlertList.empty();
-            alertTags.getAlertList.innerHTML = '';
+            alertTags.getAlertList.innerHTML = "";
             alerts.forEach((alert) => {
                 let row = $(rowTemplateAlertlist);
-                row.find('.alert-row-type').text(alert.type);
-                row.find('.alert-row-description').text(alert.description);
-                row.find('.alert-row-date').text(alert.date.toString());
-                row.find('.alert-row-button-delete').click(() => {
+                row.find(".alert-row-type").text(alert.type);
+                row.find(".alert-row-description").text(alert.description);
+                row.find(".alert-row-date").text(alert.date.toString());
+                row.find(".alert-row-button-delete").click(() => {
                     deleteAlert(alert._id)
                         .then(alertTags.getButton.click())
                         .catch((error) => {
@@ -79,6 +81,13 @@ const parseAlertResponse = (response) => {
     });
 };
 
+function autoRefreshAlerts() {
+    wait(10000).then(() => {
+        alertTags.getButton.click();
+        autoRefreshAlerts();
+    });
+}
+
 $(document).ready(() => {
     loadAlertElements();
 
@@ -90,4 +99,7 @@ $(document).ready(() => {
                 console.log(error);
             });
     });
+
+    alertTags.getButton.click();
+    autoRefreshAlerts();
 });

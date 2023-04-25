@@ -4,7 +4,6 @@
 <head>
     <%- include('../template/head'); %>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <script src="/static/scripts/api.js"></script>
     <script src="/static/scripts/consumption.js"></script>
     <script src="/static/scripts/client.js"></script>
@@ -22,9 +21,11 @@
         <div class="section">
             <h1 class="section-title">Alertes</h1>
             <div class="section-content">
-                        <div id="alert-list">
-                        </div>
-                <button id="refreshButtonAlert" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
+                <div id="alert-list">
+                </div>
+                <div class="text-center">
+                    <button id="refreshButtonAlert" type="button" class="btn-tplm btn btn-block my-2">Rafraichir</button>
+                </div>
             </div>
         </div>
 
@@ -35,7 +36,9 @@
                     <canvas id="consumptionChart"></canvas>
                 </div>
                 <script src="../../static/scripts/consumptionChart.js"></script>
-                <button id="refreshButton" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
+                <div class="text-center">
+                    <button id="refreshButton" type="button" class="btn-tplm btn btn-block my-2">Rafraichir</button>
+                </div>
             </div>
         </div>
 
@@ -55,9 +58,9 @@
                     </div>
                 </div>
                 <div id="addIPToWhitelist">
-                  <label for="inputClientIP">Ajouter une IP à la whitelist:</label>
-                  <input type="text" id="inputClientIP" name="ip-adress">
-                  <button id="submitButtonIP">Ajouter</button>
+                    <label for="inputClientIP">Ajouter une IP à la whitelist:</label>
+                    <input type="text" id="inputClientIP" name="ip-adress">
+                    <button id="submitButtonIP" class="btn-tplm btn btn-block my-2">Ajouter</button>
                 </div>
                 <div id="port-section">
                     <div id="whitelist-port-box" class="client-column">
@@ -72,11 +75,13 @@
                     </div>
                 </div>
                 <div id="addPortNumberToOpenList">
-                  <label for="inputPortNumber">Ajouter un port à la liste des ports ouverts:</label>
-                  <input type="number" id="inputPortNumber" name="port-number">
-                  <button id="submitButtonPort">Ajouter</button>
+                    <label for="inputPortNumber">Ajouter un port à la liste des ports ouverts:</label>
+                    <input type="number" id="inputPortNumber" name="port-number">
+                    <button id="submitButtonPort" class="btn-tplm btn btn-block my-2">Ajouter</button>
                 </div>
-                <button id="refreshButtonLists" type="button" class="btn-tplm btn btn-block mb-4">Rafraichir</button>
+                <div class="text-center">
+                    <button id="refreshButtonLists" type="button" class="btn-tplm btn btn-block mt-4 mb-2">Rafraichir</button>
+                </div>
             </div>
         </div>
     </main>

@@ -2,13 +2,25 @@ const { errorHandler } = require("./utils");
 const Client = require("../models/client");
 
 exports.create = (req, res, next) => {
-    createClient(req.body.ip, req.body.whitelisted)
-        .then(() => {
-            res.status(200).json({ result: "Client created" });
-        })
-        .catch((error) => {
-            errorHandler(error, res);
-        });
+    Client.find({ ip: req.body.ip }).then((client) => {
+        if (client.length == 0) {
+            createClient(req.body.ip, req.body.whitelisted)
+                .then(() => {
+                    res.status(200).json({ result: "Client created" });
+                })
+                .catch((error) => {
+                    errorHandler(error, res);
+                });
+        } else {
+            Client.updateOne({ ip: req.body.ip }, { whitelisted: req.body.whitelisted })
+                .then((result) => {
+                    res.status(200).json({ result: "Client whitelist status updated" });
+                })
+                .catch((error) => {
+                    errorHandler(error, res);
+                });
+        }
+    });
 };
 
 exports.read = (req, res, next) => {

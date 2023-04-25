@@ -115,7 +115,9 @@ const parseClientResponse = (response) => {
                 row.find(".client-row-adress").text(client.ip);
                 row.find(".client-row-button-delete-whitelist").click(() => {
                     deleteClient(client.ip)
-                        .then(clientTags.getButton.click())
+                        .then(() => {
+                            clientTags.getButton.click();
+                        })
                         .catch((error) => {
                             console.log(error);
                         });
@@ -146,6 +148,13 @@ const parseClientResponse = (response) => {
     });
 };
 
+function autoRefreshClients() {
+    wait(10000).then(() => {
+        clientTags.getButton.click();
+        autoRefreshClients();
+    });
+}
+
 $(document).ready(() => {
     loadClientElements();
 
@@ -160,9 +169,14 @@ $(document).ready(() => {
 
     clientTags.getAddWhitelistButton.click(() => {
         addWhitelistClient(clientTags.getAddWhitelistInput.val())
-            .then(clientTags.getButton.click())
+            .then(() => {
+                clientTags.getButton.click();
+            })
             .catch((error) => {
                 console.log(error);
             });
     });
+
+    clientTags.getButton.click();
+    autoRefreshClients();
 });

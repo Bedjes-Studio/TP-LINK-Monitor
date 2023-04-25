@@ -115,7 +115,9 @@ const parsePortResponse = (response) => {
                 row.find(".port-row-number").text(port.number);
                 row.find(".port-row-button-delete-whitelist").click(() => {
                     deletePort(port.number)
-                        .then(portTags.getButton.click())
+                        .then(() => {
+                            portTags.getButton.click();
+                        })
                         .catch((error) => {
                             console.log(error);
                         });
@@ -127,14 +129,18 @@ const parsePortResponse = (response) => {
                 row.find(".port-row-number").text(port.number);
                 row.find(".port-row-button-to-whitelist").click(() => {
                     changeWhitelistPort(port.number)
-                        .then(portTags.getButton.click())
+                        .then(() => {
+                            portTags.getButton.click();
+                        })
                         .catch((error) => {
                             console.log(error);
                         });
                 });
                 row.find(".port-row-button-remove-connection").click(() => {
                     deletePort(port.number)
-                        .then(portTags.getButton.click())
+                        .then(() => {
+                            portTags.getButton.click();
+                        })
                         .catch((error) => {
                             console.log(error);
                         });
@@ -146,10 +152,18 @@ const parsePortResponse = (response) => {
     });
 };
 
+function autoRefreshPorts() {
+    wait(10000).then(() => {
+        portTags.getButton.click();
+        autoRefreshPorts();
+    });
+}
+
 $(document).ready(() => {
     loadPortElements();
 
     portTags.getButton.click(() => {
+        console.log("refreshing");
         getPorts()
             .then(apiResponseParser)
             .then(parsePortResponse)
@@ -159,10 +173,17 @@ $(document).ready(() => {
     });
 
     portTags.getAddOpenButton.click(() => {
+        console.log("adding");
+
         addOpenPort(parseInt(portTags.getAddOpenInput.val()))
-            .then(portTags.getButton.click())
+            .then(() => {
+                portTags.getButton.click();
+            })
             .catch((error) => {
                 console.log(error);
             });
     });
+
+    portTags.getButton.click();
+    autoRefreshPorts();
 });

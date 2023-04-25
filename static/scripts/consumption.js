@@ -1,7 +1,6 @@
 // TODO : ajouter cette ligne en haut du fichier ejs pour importer le script
 // <script src="/static/scripts/consumption.js"></script>
 
-
 let consumptionTags;
 // add chart management
 
@@ -19,7 +18,7 @@ const getConsumption = () => {
         apiCall(getConsumptionsEndpoint, "GET")
             .then((response) => {
                 resolve(response);
-            })  
+            })
             .catch((error) => {
                 reject(error);
             });
@@ -41,6 +40,13 @@ const parseConsumptionResponse = (response) => {
     });
 };
 
+function autoRefreshConsumption() {
+    wait(10000).then(() => {
+        consumptionTags.refreshButton.click();
+        autoRefreshConsumption();
+    });
+}
+
 $(document).ready(() => {
     loadConsumptionElements();
 
@@ -53,4 +59,7 @@ $(document).ready(() => {
                 console.log(error);
             });
     });
+
+    consumptionTags.refreshButton.click();
+    autoRefreshConsumption();
 });

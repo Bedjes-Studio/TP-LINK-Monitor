@@ -2,13 +2,27 @@ const { errorHandler } = require("./utils");
 const Port = require("../models/port");
 
 exports.create = (req, res, next) => {
-    createPort(req.body.number, req.body.open)
-        .then(() => {
-            res.status(200).json({ result: "Port created" });
-        })
-        .catch((error) => {
-            errorHandler(error, res);
-        });
+    Port.find({ number: req.body.number }).then((port) => {
+        if (port.length == 0) {
+            console.log("created");
+            createPort(req.body.number, req.body.open)
+                .then(() => {
+                    res.status(200).json({ result: "Port created" });
+                })
+                .catch((error) => {
+                    errorHandler(error, res);
+                });
+        } else {
+            console.log("update");
+            Port.updateOne({ number: req.body.number }, { open: req.body.open })
+                .then((result) => {
+                    res.status(200).json({ result: "Port open status updated" });
+                })
+                .catch((error) => {
+                    errorHandler(error, res);
+                });
+        }
+    });
 };
 
 exports.read = (req, res, next) => {
