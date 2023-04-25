@@ -9,13 +9,11 @@ function consumptionAnalyserDemon(line, oldAmortizeData) {
         data = data.values;
         if (data.length > 0) {
             console.log("Readed from " + line + " to " + (line + data.length - 1));
-            console.log(data);
             line += data.length;
             newAmortizeData = amortizeData(oldAmortizeData, data);
-            let alertCount = detectAttacksPattern(newAmortizeData);
-            console.log(alertCount + " attack found");
+            detectAttacksPattern(newAmortizeData);
         }
-        wait(10000).then(() => {
+        wait(5000).then(() => {
             consumptionAnalyserDemon(line, newAmortizeData);
         });
     });

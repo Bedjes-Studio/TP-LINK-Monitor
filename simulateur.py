@@ -9,6 +9,8 @@ import matplotlib.animation as animation
 from matplotlib import style
 import time
 
+# Suppression des anciennes simulations
+open("./data/simulated_consumption.csv", 'w+').close()
 # Récupération des données réelles
 file = open("./data/historic_consumption.csv", "r")
 lignes = file.readlines()
