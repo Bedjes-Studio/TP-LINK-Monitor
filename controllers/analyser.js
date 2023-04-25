@@ -29,7 +29,7 @@ function createAnalyserProcess(script) {
 function updateAnalyserProcess(res, type, newpid) {
     Analyser.updateOne({ type: type }, { pid: newpid, running: true })
         .then((result) => {
-            res.status(200).json({ result: req.body.type + " analyser started open" });
+            res.status(200).json({ result: type + " analyser started open" });
         })
         .catch((error) => {
             errorHandler(error, res);
@@ -96,13 +96,13 @@ exports.kill = (req, res, next) => {
     Analyser.findOne({ type: req.body.type })
         .then((analyser) => {
             kill(analyser.pid, function (error) {
-                if (error) {
-                    errorHandler(error, res);
-                } else {
-                    Analyser.updateOne({ type: req.body.type }, { running: false }).then((result) => {
+                Analyser.updateOne({ type: req.body.type }, { running: false }).then((result) => {
+                    if (error) {
+                        errorHandler(error, res);
+                    } else {
                         res.status(200).json({ result: "Status updated" });
-                    });
-                }
+                    }
+                });
             });
         })
         .catch((error) => {
