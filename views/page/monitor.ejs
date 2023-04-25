@@ -9,6 +9,7 @@
     <script src="/static/scripts/client.js"></script>
     <script src="/static/scripts/alert.js"></script>
     <script src="/static/scripts/port.js"></script>
+    <script src="/static/scripts/signup.js"></script>
 </head>
 
 <body class="container">
@@ -82,6 +83,33 @@
                 <div class="text-center">
                     <button id="refreshButtonLists" type="button" class="btn-tplm btn btn-block mt-4 mb-2">Rafraichir</button>
                 </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h1 class="section-title">Ajouter un utilisateur</h1>
+            <div class="section-content">
+                <form>
+                    <div class="form-outline mb-4">
+                        <input id="usernameInput" type="text" class="form-control" />
+                        <label class="form-label" for="usernameInput">Nom d'utilisateur</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input id="emailInput" type="text" class="form-control" />
+                        <label class="form-label" for="usernameInput">Email</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input id="passwordInput" type="password" class="form-control" />
+                        <label class="form-label" for="passwordInput">Mot de passe</label>
+                    </div>
+
+                    <button id="signupButton" type="button" class="btn-tplm btn btn-block mb-4">Se connecter</button>
+
+                    <p id="signupMessages">
+                    </p>
+                </form>
             </div>
         </div>
     </main>

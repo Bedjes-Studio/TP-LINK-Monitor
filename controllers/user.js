@@ -13,6 +13,7 @@ exports.signup = (req, res, next) => {
             const user = new User({
                 username: req.body.username,
                 password: hash,
+                email: req.body.email,
             });
 
             user.save()
@@ -38,17 +39,15 @@ exports.login = (req, res, next) => {
                 if (!user) {
                     return res.status(401).json({ error: "Utilisateur non trouvé !" });
                 }
-                bcrypt
-                    .compare(req.body.password, user.password)
-                    .then((valid) => {
-                        if (!valid) {
-                            return res.status(401).json({ error: "Mot de passe incorrect !" });
-                        }
-                        token = jwt.sign({ username: req.body.username }, config.server.key, { expiresIn: "24h" });
-                        res.cookie("AUTH_COOKIE", token);
-                        console.log;
-                        res.status(200).json({ token: token });
-                    })
+                bcrypt.compare(req.body.password, user.password).then((valid) => {
+                    if (!valid) {
+                        return res.status(401).json({ error: "Mot de passe incorrect !" });
+                    }
+                    token = jwt.sign({ username: req.body.username }, config.server.key, { expiresIn: "24h" });
+                    res.cookie("AUTH_COOKIE", token);
+                    console.log;
+                    res.status(200).json({ token: token });
+                });
             })
             .catch((error) => {
                 errorHandler(error, res);
