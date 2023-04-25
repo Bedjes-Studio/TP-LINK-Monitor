@@ -10,13 +10,19 @@ from matplotlib import style
 import time
 
 # Suppression des anciennes simulations
-open("./data/simulated_consumption.csv", 'w+').close()
-# Récupération des données réelles
-file = open("./data/historic_consumption.csv", "r")
-lignes = file.readlines()
-file.close()
-lignes = lignes[:-1]
-n = len(lignes)
+open("simulated_consumption.txt", 'w+').close()
+# Récupération des données saines réelles
+file_sain = open("./data/historic_sain.csv", "r")
+lignes_sain = file_sain.readlines()
+file_sain.close()
+lignes_sain = lignes_sain[:-1]
+# Récupération des données DDOS réelles
+file_DDOS = open("./data/historic_DDOS.csv", "r")
+lignes_DDOS = file_DDOS.readlines()
+file_DDOS.close()
+lignes_DDOS = lignes_DDOS[:-1]
+# Initialisation des variables
+n = min(len(lignes_sain), len(lignes_DDOS)) # Dans l'idéal les fichiers doivent être de même taille
 int_lignes = []
 index = rnd.randint(0, n-1-rnd.randint(10, 15))
 delai = 60 # Période affichée sur le graphique (en s)
@@ -34,11 +40,11 @@ def animate(i):
     t = time.localtime()
     current_time = time.strftime("%H:%M:%S", t)
     if (State == "DDOS") :
-        int_lignes.append(4*float(lignes[index].removesuffix("\n").replace(",", ".")))
+        int_lignes.append(float(lignes_DDOS[index].removesuffix("\n").replace(",", ".")))
         file.write(str(int_lignes[-1]).replace(".", ",").replace(",", ".") + "_" + current_time + "\n")
     else :
-        file.write(lignes[index].removesuffix("\n").replace(",", ".") + "_" + current_time + "\n")
-        int_lignes.append(float(lignes[index].removesuffix("\n").replace(",", ".")))
+        file.write(lignes_sain[index].removesuffix("\n").replace(",", ".") + "_" + current_time + "\n")
+        int_lignes.append(float(lignes_sain[index].removesuffix("\n").replace(",", ".")))
     index += 1
     file.close()
     
