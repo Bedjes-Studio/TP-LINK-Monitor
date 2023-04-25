@@ -15,7 +15,7 @@ let portTags;
 var rowTemplatePortWhitelist =
     '<div class="client-row"><p class="port-row-number"></p><button id="deletePortFromWhitelist" type="button" class=" port-row-button-delete-whitelist btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
 var rowTemplatePortConnection =
-    '<div class="client-row"><p class="port-row-number"></p><button id="portToWhitelistButton" type="button" class=" port-row-button-to-whitelist btn btn-warning"><img src="/static/images/arrow.png" alt="Close X" width="13" height="13" /></button></p><button id="removePortConnectionButton" type="button" class=" client-row-button-remove-connection btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
+    '<div class="client-row"><p class="port-row-number"></p><button id="portToWhitelistButton" type="button" class=" port-row-button-to-whitelist btn btn-warning"><img src="/static/images/arrow.png" alt="Close X" width="13" height="13" /></button></p><button id="removePortConnectionButton" type="button" class=" port-row-button-remove-connection btn btn-danger"><img src="/static/images/close.png" alt="Close X" width="13" height="13" /></button></div>';
 
 function loadPortElements() {
     portTags = {
