@@ -33,7 +33,7 @@ function sendMailToAdmins(subject, text) {
     User.find({})
         .then((users) => {
             users.foreach((user) => {
-                sendMail(users.email, subject, text);
+                sendMail(user.email, subject, text);
             });
         })
         .catch((error) => {
