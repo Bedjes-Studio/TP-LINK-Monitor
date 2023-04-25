@@ -7,9 +7,9 @@
         "postinstall": "pip install -r python_requirements.txt",
         "filldb": "set NODE_ENV=dev && node mongodb/filler.js",
         "filldb-sim": "set NODE_ENV=dev && node mongodb/filler.js",
-        "nodemon-dev": "set NODE_ENV=dev && nodemon server.js",
+        "nodemon": "set NODE_ENV=dev && nodemon server.js",
         "nodemon-sim": "set NODE_ENV=sim && nodemon server.js",
-        "consumptionAnalyser-dev": "set NODE_ENV=dev && node consumptionAnalyser.js",
+        "consumptionAnalyser": "set NODE_ENV=dev && node consumptionAnalyser.js",
         "consumptionAnalyser-sim": "set NODE_ENV=sim && node consumptionAnalyser.js",
         "networkAnalyser": "set NODE_ENV=dev && node networkAnalyser.js",
         "simulate": "py simulateur.py"
