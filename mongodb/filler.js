@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("../config");
 const { userFiller } = require("./user");
+const { analyserFiller } = require("./analyser");
 const { dropTables } = require("./utils");
 
 mongoose
@@ -12,7 +13,7 @@ mongoose
     .catch(() => console.log("Connection to MongoDB failed !"));
 
 dropTables().then(() => {
-    Promise.all([userFiller()]).then(() => {
+    Promise.all([userFiller(), analyserFiller()]).then(() => {
         console.log("Content created");
         process.exit(0);
     });
