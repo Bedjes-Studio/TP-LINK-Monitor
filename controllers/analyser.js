@@ -6,7 +6,7 @@ const find = require("find-process");
 var kill = require("tree-kill");
 
 function createAnalyserProcess(script) {
-    const analyserProcess = spawn("node", [script]);
+    const analyserProcess = spawn("node", script);
 
     analyserProcess.stdout.on("data", (data) => {
         console.log("[" + script + "] stdout: " + data);
@@ -26,20 +26,36 @@ function createAnalyserProcess(script) {
     return analyserProcess.pid;
 }
 
+function updateAnalyserProcess(res, type, newpid) {
+    Analyser.updateOne({ type: type }, { pid: newpid, running: true })
+        .then((result) => {
+            res.status(200).json({ result: req.body.type + " analyser started open" });
+        })
+        .catch((error) => {
+            errorHandler(error, res);
+        });
+}
+
 exports.start = (req, res, next) => {
     switch (req.body.type) {
         case "Consumption":
-            console.log("consumption");
+            updateAnalyserProcess(res, req.body.type, createAnalyserProcess(["consumptionAnalyser.js"]));
+            break;
 
-            const analyserProcessPID = createAnalyserProcess("consumptionAnalyser.js");
+        case "Network IP":
+            updateAnalyserProcess(res, req.body.type, createAnalyserProcess(["networkAnalyser.js", "IP"]));
+            break;
 
-            Analyser.updateOne({ type: req.body.type }, { pid: analyserProcessPID, running: true })
-                .then((result) => {
-                    res.status(200).json({ result: req.body.type + " analyser started open" });
-                })
-                .catch((error) => {
-                    errorHandler(error, res);
-                });
+        case "Network port":
+            updateAnalyserProcess(res, req.body.type, createAnalyserProcess(["networkAnalyser.js", "PORT"]));
+            break;
+
+        case "Network DDoS":
+            updateAnalyserProcess(res, req.body.type, createAnalyserProcess(["networkAnalyser.js", "DDOS"]));
+            break;
+
+        default:
+            res.status(400).json({ result: req.body.type + " analyser started open" });
             break;
     }
 };
