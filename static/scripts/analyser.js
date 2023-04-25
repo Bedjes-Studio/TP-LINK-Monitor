@@ -90,6 +90,20 @@ const stopAnalyser = (type) => {
     });
 };
 
+const checkAnalyser = () => {
+    return new Promise(function (resolve, reject) {
+        stopAnalyserEndpoint = "/api/analyser/check";
+
+        apiCall(stopAnalyserEndpoint, "GET")
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
 // const addWhitelistClient = (ip) => {
 //     return new Promise(function (resolve, reject) {
 //         let whitelistEndpoint = "/api/client/create";
@@ -153,7 +167,9 @@ const parseAnalyserResponse = (response) => {
 function autoRefreshAnalyser() {
     wait(10000).then(() => {
         analyserTags.getAnalyserButton.click();
-        autoRefreshAnalyser();
+        checkAnalyser().then(() => {
+            autoRefreshAnalyser();
+        });
     });
 }
 
