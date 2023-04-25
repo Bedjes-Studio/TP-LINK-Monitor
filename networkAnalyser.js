@@ -249,9 +249,28 @@ function countRequests() {
 }
 
 function startTsharkDemon() {
-    startIpDemon();
-    startPortDemon();
-    startCountDemon();
+    if (process.argv.length < 3) {
+        console.log("No mode specify, running 3 modes IP PORT or DDOS");
+        startIpDemon();
+        startPortDemon();
+        startCountDemon();
+        return;
+    }
+
+    switch (process.argv[2]) {
+        case "IP":
+            startIpDemon();
+            break;
+        case "PORT":
+            startPortDemon();
+            break;
+        case "DDOS":
+            startCountDemon();
+            break;
+        default:
+            console.log("Mode unknow. Modes are IP PORT or DDOS");
+            process.exit(1);
+    }
 }
 
 mongodb.connect();

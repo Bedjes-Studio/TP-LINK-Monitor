@@ -29,7 +29,6 @@
     --dark-gray: #36444b;
     --light-gray: #a7a0ac;
     --ultra-light-gray: #dfd8e5;
-
 }
 
 body {
@@ -39,7 +38,7 @@ body {
 }
 
 footer {
-    background-color:var(--dark-green);
+    background-color: var(--dark-green);
     color: var(--light-gray);
     margin-top: 20px;
     padding: 10px;
@@ -85,7 +84,6 @@ footer {
 .client-row {
     display: flex;
     width: 100%;
- 
 }
 
 .client-row-adress {
@@ -252,4 +250,21 @@ footer {
     background-color: #4e8672;
     text-align: left !important;
     border-radius: 20px;
+}
+
+/*
+* analyser
+*/
+
+.analyser-type {
+    background-color: var(--dark-green);
+    padding: 10px;
+    margin-bottom: 0;
+    border-radius: 5px;
+}
+
+.analyser-status {
+    padding: 10px;
+    margin-bottom: 0;
+    border-radius: 5px;
 }
